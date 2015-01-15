@@ -107,18 +107,48 @@ textarea {
 }
 
 
-#main-wrapper { width:80%; margin:0 auto; font-size:14px; line-height:24px;
-  #beer-wrapper { width:90%; border:1px solid #555; overflow:hidden; position:relative; height:640px; margin:20px 0; background:#555;
+$purple: #220d60;
+
+
+#main-wrapper { width:100%; margin:0 auto; font-size:14px; line-height:24px;
+  #beer-wrapper { width:100%; overflow:hidden; position:relative; height:700px; margin:20px 0;
 
     #left, #right {width:50%; position:absolute; opacity: .5; height:100%; z-index:-1;}
     #right {right:0;}
     #left {left:0;}
-    #beer-wrapper-interior {position:absolute; top:0; left:0; height:100%;
+    ul#beer-wrapper-interior {position:absolute; top:0; left:0; height:100%; padding:0; margin:0;
 
-      .beer {list-style-type:none; letter-spacing: 2px; cursor: pointer; height: 100%; width:400px; float:left; border-right:1px solid #fff; text-align:center; @include transition(all, 0.25s, ease-in-out); color:white; line-height:640px;
+      li.beer {position:relative; list-style-type:none; cursor: pointer; height: 100%; width:315px; float:left; border-right:1px solid #fff; text-align:center; @include transition(all, 0.5s, ease-in-out); color:white;
+          &:after {@include transition(all, 0.5s, ease-in-out); content: ""; opacity: 0.2; top: 0; left: 0; bottom: 0; right: 0; position: absolute; z-index: -1;}
           &.hoverable {
-              &:hover {width:450px;}
+              &:hover {width:400px;}
+              &:hover:after{opacity:.5 !important;}
           }
+          
+          &:last-child {opacity:.5;}
+          
+          .text-wrapper {width:315px; margin:0 auto; margin-top:200px; 
+              h3 {color:$purple; font-family:garamond; font-weight:bold; font-size:70px; line-height:66px;}
+              p {color:$purple;
+                  &.first-brewed {font-size:20px;}
+                  &.last-brewed {font-size:20px; 
+                      .date {font-size:32px; font-family:garamond; font-weight:bold; display:block; }
+                  }
+              }
+          }
+          
+          &#peeper {
+             &::after {background:url(../img/beer-bg-peeper.jpg) no-repeat top left; } 
+          }
+          &#zoe {
+              &::after{background:url(../img/beer-bg-zoe.jpg) no-repeat top left;}
+            }
+          &#tom {
+              &::after{background:url(../img/beer-bg-tom.jpg) no-repeat top left;}
+            }
+          &#lunch {
+              &::after{background:url(../img/beer-bg-lunch.jpg) no-repeat top left;}
+              }
       }
     }
     

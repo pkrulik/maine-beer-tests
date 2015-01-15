@@ -35,7 +35,7 @@ $beerWrapperInterior.css({left:0})
 
 
 
-$beerWrapper.mouseover(function(){
+$beerWrapper.mouseenter(function(){
     
     console.log('mouseover')
     
@@ -70,11 +70,13 @@ $beerWrapper.mouseover(function(){
         
         if (hoverSide === 'left') {
             
-            if (lastPosition - mousemoveX > 0 && animating == 0) {
+            console.log(lastPosition - mousemoveX)
+            
+            if (lastPosition - mousemoveX > 3 && animating == 0 && !($beerWrapperInteriorOffset >= 0) ) {
                 
                 animateLeft();
                 
-            } else if (lastPosition - mousemoveX < 0 && animating == 1) {
+            } else if (lastPosition - mousemoveX < -3 && animating == 1 && !($beerWrapperInteriorOffset >= 0) ) {
                 
                 stopAnimation();                
             
@@ -85,12 +87,13 @@ $beerWrapper.mouseover(function(){
         
         else if (hoverSide === 'right') {
             
+            console.log(lastPosition - mousemoveX)
             
-            if (lastPosition - mousemoveX < 0 && animating == 0) {
+            if (lastPosition - mousemoveX < 0 && animating == 0 && !($beerWrapperInteriorOffset <= - (beerWrapperInteriorWidth - beerWrapperWidth) ) ) {
                 
                 animateRight();
                 
-            } else if (lastPosition - mousemoveX > 0 && animating == 1) {
+            } else if (lastPosition - mousemoveX > 0 && animating == 1 && !($beerWrapperInteriorOffset <= - (beerWrapperInteriorWidth - beerWrapperWidth) ) ) {
                 
                 stopAnimation();    
             
@@ -116,11 +119,13 @@ $beerWrapper.mouseover(function(){
 
 // this is causing issues in firefox
 
-$beerWrapper.mouseout(function(){
+$beerWrapper.mouseleave(function(){
     
     if ( animating == 1 ) {
         stopAnimation();
     } 
+    
+    console.log('hoveredoff')
     
 });
 
@@ -218,7 +223,17 @@ function animateLeft() {
 */
  
  
- 
+  $('.hoverable').mouseover(function(){
+  
+    $beerWrapperInterior.css({width:beerWidth * $beer.length + 85 })
+  
+  });
+  
+  $('.hoverable').mouseout(function(){
+  
+    $beerWrapperInterior.css({width:beerWidth * $beer.length })
+  
+  });
  
  
  

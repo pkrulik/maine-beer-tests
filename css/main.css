@@ -79,18 +79,16 @@ textarea {
    Author's custom styles
    ========================================================================== */
 #main-wrapper {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   font-size: 14px;
   line-height: 24px; }
   #main-wrapper #beer-wrapper {
-    width: 90%;
-    border: 1px solid #555;
+    width: 100%;
     overflow: hidden;
     position: relative;
-    height: 640px;
-    margin: 20px 0;
-    background: #555; }
+    height: 700px;
+    margin: 20px 0; }
     #main-wrapper #beer-wrapper #left, #main-wrapper #beer-wrapper #right {
       width: 50%;
       position: absolute;
@@ -101,29 +99,77 @@ textarea {
       right: 0; }
     #main-wrapper #beer-wrapper #left {
       left: 0; }
-    #main-wrapper #beer-wrapper #beer-wrapper-interior {
+    #main-wrapper #beer-wrapper ul#beer-wrapper-interior {
       position: absolute;
       top: 0;
       left: 0;
-      height: 100%; }
-      #main-wrapper #beer-wrapper #beer-wrapper-interior .beer {
+      height: 100%;
+      padding: 0;
+      margin: 0; }
+      #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer {
+        position: relative;
         list-style-type: none;
-        letter-spacing: 2px;
         cursor: pointer;
         height: 100%;
-        width: 400px;
+        width: 315px;
         float: left;
         border-right: 1px solid #fff;
         text-align: center;
-        -webkit-transition: all 0.25s ease-in-out;
-        -moz-transition: all 0.25s ease-in-out;
-        -ms-transition: all 0.25s ease-in-out;
-        -o-transition: all 0.25s ease-in-out;
-        transition: all 0.25s ease-in-out;
-        color: white;
-        line-height: 640px; }
-        #main-wrapper #beer-wrapper #beer-wrapper-interior .beer.hoverable:hover {
-          width: 450px; }
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        color: white; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer:after {
+          -webkit-transition: all 0.5s ease-in-out;
+          -moz-transition: all 0.5s ease-in-out;
+          -ms-transition: all 0.5s ease-in-out;
+          -o-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out;
+          content: "";
+          opacity: 0.2;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          position: absolute;
+          z-index: -1; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer.hoverable:hover {
+          width: 400px; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer.hoverable:hover:after {
+          opacity: .5 !important; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer:last-child {
+          opacity: .5; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer .text-wrapper {
+          width: 315px;
+          margin: 0 auto;
+          margin-top: 200px; }
+          #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer .text-wrapper h3 {
+            color: #220d60;
+            font-family: garamond;
+            font-weight: bold;
+            font-size: 70px;
+            line-height: 66px; }
+          #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer .text-wrapper p {
+            color: #220d60; }
+            #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer .text-wrapper p.first-brewed {
+              font-size: 20px; }
+            #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer .text-wrapper p.last-brewed {
+              font-size: 20px; }
+              #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer .text-wrapper p.last-brewed .date {
+                font-size: 32px;
+                font-family: garamond;
+                font-weight: bold;
+                display: block; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer#peeper::after {
+          background: url(../img/beer-bg-peeper.jpg) no-repeat top left; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer#zoe::after {
+          background: url(../img/beer-bg-zoe.jpg) no-repeat top left; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer#tom::after {
+          background: url(../img/beer-bg-tom.jpg) no-repeat top left; }
+        #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer#lunch::after {
+          background: url(../img/beer-bg-lunch.jpg) no-repeat top left; }
 
 .clear {
   clear: both; }
