@@ -88,7 +88,8 @@ textarea {
     overflow: hidden;
     position: relative;
     height: 700px;
-    margin: 20px 0; }
+    margin: 20px 0;
+    cursor: pointer; }
     #main-wrapper #beer-wrapper #left, #main-wrapper #beer-wrapper #right {
       width: 50%;
       position: absolute;
@@ -109,7 +110,6 @@ textarea {
       #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer {
         position: relative;
         list-style-type: none;
-        cursor: pointer;
         height: 100%;
         width: 315px;
         float: left;
@@ -120,6 +120,7 @@ textarea {
         -ms-transition: all 0.5s ease-in-out;
         -o-transition: all 0.5s ease-in-out;
         transition: all 0.5s ease-in-out;
+        overflow: hidden;
         color: white; }
         #main-wrapper #beer-wrapper ul#beer-wrapper-interior li.beer:after {
           -webkit-transition: all 0.5s ease-in-out;

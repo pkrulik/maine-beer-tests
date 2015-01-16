@@ -1,21 +1,10 @@
-// if the mouse changes directions stop the animation
-// if the animation is stopped allow the hover to kick in
-// if the div is animating dont allow hover
 
+var $win = $(window);
+var $body = $('body');
 var $beerWrapper = $('#beer-wrapper');
 var $beerWrapperInterior = $('#beer-wrapper-interior');
 var $beer = $('.beer');
 
-var beerWrapperWidth = $beerWrapper.width();
-var beerWrapperOffset = $beerWrapper.offset().left;
-
-var beerWidth = $beer.outerWidth();
-
-// set the width of the interior to the width of all the beer items
-$beerWrapperInterior.css({width:beerWidth * $beer.length })
-
-var beerWrapperInteriorWidth = $beerWrapperInterior.width();
-var $beerWrapperInteriorOffset = $beerWrapperInterior.offset().left - beerWrapperOffset;
 
 var fullSpeed = 80;
 var animating = 0;
@@ -24,26 +13,63 @@ var hoverSide;
 var idealSpeed = 5000; // in seconds
 var beersPerSecond = -1000; // in ms
 
-$('.beerWrapperWidth').html(beerWrapperWidth)
-$('.beerWrapperOffset').html(beerWrapperOffset)
 
-$('.beerWrapperInteriorWidth').html(beerWrapperInteriorWidth)
-
-$('.beerWidth').html(beerWidth)
-
-$beerWrapperInterior.css({left:0})
+// call the layout() function on resize;
+$win.resize( layout );
 
 
+// page load function
+function init() {
+    
+    // make sure the interior beer wrapper is at it's 
+    // starting point on load
+    $beerWrapperInterior.css({left:0})
+    
+    // size all elements accordingly
+    layout();
+    
+    
+    
+}
 
+
+// handle all dimension gather and resizing here
+function layout() {
+    
+    winWidth = $win.width();
+    winHeight = $win.height();
+    
+    beerWrapperWidth = $beerWrapper.width();
+    beerWrapperOffset = $beerWrapper.offset().left;
+    
+    beerWidth = $beer.outerWidth();
+    
+    // set the width of the interior to the width of all the beer items
+    $beerWrapperInterior.css({width:beerWidth * $beer.length })
+    
+    beerWrapperInteriorWidth = $beerWrapperInterior.width();
+    $beerWrapperInteriorOffset = $beerWrapperInterior.offset().left - beerWrapperOffset;
+    
+    console.log('layout')
+    
+}
+
+
+
+
+// hover over beer section
 $beerWrapper.mouseenter(function(){
     
     console.log('mouseover')
     
+    // track the mouse position
     $(this).mousemove(function(e){
         
         
+        // store the most position
         mousemoveX = e.clientX - beerWrapperOffset;
         
+        // TRACK HOVER POSITION
         // if we hover over the left side
         if (mousemoveX < beerWrapperWidth * .333 ) {
             
@@ -59,6 +85,7 @@ $beerWrapper.mouseenter(function(){
             
         } 
         
+        // if we're in the middle
         else {
             
             hoverSide = 'middle';
@@ -67,27 +94,35 @@ $beerWrapper.mouseenter(function(){
         
         
         
-        
+        // WHAT HAPPENS WHEN WE HOVER OVER A CERTAIN SECTION
         if (hoverSide === 'left') {
             
-            console.log(lastPosition - mousemoveX)
+//             console.log(lastPosition - mousemoveX)
             
-            if (lastPosition - mousemoveX > 3 && animating == 0 && !($beerWrapperInteriorOffset >= 0) ) {
+            // if the last position is greater than the curreposition
+            // and the page is not currently animating
+            // and the interior offset is not 0 or greater
+            if (lastPosition - mousemoveX > 0 && animating == 0 && !($beerWrapperInteriorOffset >= 0) ) {
                 
                 animateLeft();
                 
-            } else if (lastPosition - mousemoveX < -3 && animating == 1 && !($beerWrapperInteriorOffset >= 0) ) {
+            } 
+            
+            
+            // else if the last position is small ther then current position
+            // the page is animating
+            // and the interior offset is not greater than or equal to zero
+            else if (lastPosition - mousemoveX < 0 && animating == 1 && !($beerWrapperInteriorOffset >= 0) ) {
                 
                 stopAnimation();                
             
             }
             
-            
         } 
         
         else if (hoverSide === 'right') {
             
-            console.log(lastPosition - mousemoveX)
+//             console.log(lastPosition - mousemoveX)
             
             if (lastPosition - mousemoveX < 0 && animating == 0 && !($beerWrapperInteriorOffset <= - (beerWrapperInteriorWidth - beerWrapperWidth) ) ) {
                 
@@ -99,7 +134,6 @@ $beerWrapper.mouseenter(function(){
             
             }
             
-            
         }
         
         $('.mousemoveX').html(mousemoveX);
@@ -107,17 +141,12 @@ $beerWrapper.mouseenter(function(){
 
 
         lastPosition =  mousemoveX;
-        
-        $('.hoverSide').html(hoverSide);
-        
-        
-        
+                
     });
     
 });
 
 
-// this is causing issues in firefox
 
 $beerWrapper.mouseleave(function(){
     
@@ -125,7 +154,7 @@ $beerWrapper.mouseleave(function(){
         stopAnimation();
     } 
     
-    console.log('hoveredoff')
+    console.log('hovered off')
     
 });
 
@@ -138,29 +167,14 @@ function animateLeft() {
     
     $beerWrapperInteriorOffset =  Math.round($beerWrapperInterior.offset().left - beerWrapperOffset);
     
-                    // (2000/400) 
-                    // = 5 beers off screen      
-    idealSpeed =  ($beerWrapperInteriorOffset / beerWidth) * beersPerSecond; // returns in ms
-    
-    
-    $('.speed').html(idealSpeed)
+    idealSpeed =  ($beerWrapperInteriorOffset / beerWidth) * beersPerSecond; // returns in ms    
 
-    
-    if ($beerWrapperInteriorOffset <= 0) {
-        $beerWrapperInterior.animate({left:  0 }, idealSpeed, 'easeOutQuad'  )  // need to create a variable for this    
-    } else {
-        $beerWrapperInterior.css({left:  0 })      
-    }
+    $beerWrapperInterior.animate({left:  0 }, idealSpeed, 'easeOutQuad'  )  // need to create a variable for this    
 
-    
     $beer.removeClass('hoverable');
     
     console.log('animate left')
-    
-    $('.beerWrapperInteriorOffset').html($beerWrapperInteriorOffset)
-
-    
-    
+        
   }
 
   // what happens when you hover on the right side
@@ -178,8 +192,6 @@ function animateLeft() {
       
     console.log('animate right')
     
-    $('.beerWrapperInteriorOffset').html($beerWrapperInteriorOffset)
-    $('.speed').html(idealSpeed)
     
   }
   
@@ -197,37 +209,15 @@ function animateLeft() {
   }
 
 
-/*
- $('.hoverable').mouseover(function(){
-  
-    setTimeout(function(){
-        console.log($beerWrapperInteriorOffset)
-        $beerWrapperInteriorOffset =- 100;
-        $beerWrapperInterior.stop().animate({left:  $beerWrapperInteriorOffset}, 'fast')
-        console.log($beerWrapperInteriorOffset)
-    },250);
-    
-     
- });
- 
- 
- $('.hoverable').mouseout(function(){
-  
-    console.log($beerWrapperInteriorOffset)
-    $beerWrapperInteriorOffset += 100;
-    $beerWrapperInterior.stop().animate({left:  $beerWrapperInteriorOffset}, 'fast')
-    console.log($beerWrapperInteriorOffset)
-    
-     
- });
-*/
- 
- 
+  // increase the size of the wrapper so we can handle exapanding the divs on hover
+  // assuming only one 
   $('.hoverable').mouseover(function(){
   
     $beerWrapperInterior.css({width:beerWidth * $beer.length + 85 })
   
   });
+  
+  
   
   $('.hoverable').mouseout(function(){
   
@@ -238,7 +228,7 @@ function animateLeft() {
  
  
  
- 
+ init();
  
  
  
